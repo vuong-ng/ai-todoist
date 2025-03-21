@@ -1,6 +1,8 @@
 import React from 'react'
 import { UserButton } from '@clerk/nextjs'
 import { Separator } from '@/components/ui/separator'
+import { Button } from '@/components/ui/button'
+import { ArrowLeft } from 'lucide-react'
 type Props = {}
 
 const page = (props: Props) => {
@@ -18,9 +20,12 @@ const page = (props: Props) => {
             </div>
           </div>
             <Separator/>
-          <div >
-              <div className='text-center'>No notes yet.</div>
-              
+          <div>
+              <div className='text-center'>No notes yet. </div>
+              <Separator/>
+          </div>
+          <div className='flex h-screen justify-center mt-8'>
+              <Button><ArrowLeft/> Back</Button>
           </div>
     </div>
   )
