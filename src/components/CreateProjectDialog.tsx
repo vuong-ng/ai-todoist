@@ -1,18 +1,56 @@
 'use client'
-import React from 'react'
+import { useState } from 'react'
 import { PlusCircleIcon } from 'lucide-react'
-import { Dialog, DialogTrigger } from '@radix-ui/react-dialog'
+import { Dialog, DialogTrigger, DialogContent, DialogTitle, DialogHeader, DialogDescription } from '@/components/ui/dialog'
+import { Input } from './ui/input'
+import { Button } from './ui/button'
 
 type Props = {}
 
 const CreateProjectDialog = (props: Props) => {
+    const [projectName, setProjectName] = useState('');
+    const [description, setDescription] = useState('');
     return (
     <Dialog>
         <DialogTrigger>
             <div className='flex w-35 h-35 items-center justify-center rounded-2xl border-dashed border-neutral-500 border-2 sm:flex-col hover:shadow-xl transition hover:-translate-x-1 hover:-translate-y-1 p-5'>
                 <PlusCircleIcon className='w-10 h-10' strokeWidth={2} style={{color: "oklch(0.556 0 0)"}} />
             </div>
-        </DialogTrigger>
+            </DialogTrigger>
+            <DialogContent>
+                <DialogHeader>
+                    <DialogTitle>
+                        Create a new project
+                    </DialogTitle>
+                    <DialogDescription>
+                        Create a new project to start planning your life
+                        <form action="submit">
+                            <label htmlFor="">Name:</label>
+                            <Input
+                                value={projectName}
+                                placeholder='Project name'
+                                onChange={(e) => {setProjectName(e.target.value)}}
+                            />
+                            <div className='h-4'></div>
+                            <label htmlFor="">Description</label>
+                            
+                            <Input
+                                value={projectName}
+                                onChange={(e) => { setProjectName(e.target.value) }}
+                                placeholder='Project description'
+                            />
+                            <div className='h-4'></div>
+                            <div className='flex gap-3'>
+                            <Button type='reset' variant={'secondary'} className=''>Cancel</Button>
+
+                                <Button type='submit'>Save</Button>
+                            </div>
+                            
+
+                        </form>
+                    </DialogDescription>
+                </DialogHeader>
+            </DialogContent>
     </Dialog>
   )
 }
