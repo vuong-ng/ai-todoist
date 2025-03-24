@@ -23,7 +23,8 @@ const CreateProjectDialog = (props: Props) => {
                         Create a new project
                     </DialogTitle>
                     <DialogDescription>
-                        Create a new project to start planning your life
+                        Create a new project to start planning your work
+                        <div className='h-4'></div>
                         <form action="submit">
                             <label htmlFor="">Name:</label>
                             <Input
@@ -31,19 +32,18 @@ const CreateProjectDialog = (props: Props) => {
                                 placeholder='Project name'
                                 onChange={(e) => {setProjectName(e.target.value)}}
                             />
-                            <div className='h-4'></div>
+                            <div className='h-3'></div>
                             <label htmlFor="">Description</label>
                             
                             <Input
-                                value={projectName}
-                                onChange={(e) => { setProjectName(e.target.value) }}
+                                value={description}
+                                onChange={(e) => { setDescription(e.target.value) }}
                                 placeholder='Project description'
                             />
                             <div className='h-4'></div>
                             <div className='flex gap-3'>
-                            <Button type='reset' variant={'secondary'} className=''>Cancel</Button>
-
-                                <Button type='submit'>Save</Button>
+                                <Button type='reset' variant={'secondary'} className=''>Cancel</Button>
+                                <Button type='submit' className='bg-slate-900'>Create</Button>
                             </div>
                             
 

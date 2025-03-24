@@ -21,7 +21,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AI todo"
+  title: "AI todo",
 };
 
 export default function RootLayout({
