@@ -10,6 +10,9 @@ type Props = {}
 const CreateProjectDialog = (props: Props) => {
     const [projectName, setProjectName] = useState('');
     const [description, setDescription] = useState('');
+    const createProjectHandler = () => {
+        return;
+    }
     return (
     <Dialog>
         <DialogTrigger>
@@ -25,7 +28,7 @@ const CreateProjectDialog = (props: Props) => {
                     <DialogDescription>
                         Create a new project to start planning your work
                         <div className='h-4'></div>
-                        <form action="submit">
+                        <form action="submit" onSubmit={createProjectHandler}>
                             <label htmlFor="">Name:</label>
                             <Input
                                 value={projectName}
