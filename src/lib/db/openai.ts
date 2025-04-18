@@ -8,8 +8,6 @@ const openai = new OpenAI({
 
 const generateTodoGuide = async (req: string) => {
     try {
-        // const {input} = await req;
-        console.log(req);
         const response = await openai.chat.completions.create({
             model: "gpt-3.5-turbo",
             messages: [

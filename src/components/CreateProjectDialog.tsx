@@ -12,25 +12,26 @@ type Props = {}
 const CreateProjectDialog = (props: Props) => {
     const [projectName, setProjectName] = useState('');
     const [description, setDescription] = useState('');
+    
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (projectName == '') {
             window.alert('Project name is required');
             return;
         }
-        else {
-            createProject.mutate(undefined,
+        createProject.mutate(undefined,
                 {
-                    onSuccess: () => {
-                        console.log('Project created!');
+                    onSuccess: ({project_id}) => {
+                        console.log("Created a new project ", { project_id });
                     },
+                    
                     onError: (error) => {
                         console.error(error.message);
+                        window.alert('Failed to create a new project');
                     }
 
                 }
             )
-        }
         return;
     }
 
@@ -38,6 +39,7 @@ const CreateProjectDialog = (props: Props) => {
         mutationFn: async () => {
                 const response = await axios.post('/api/createProject', {
                     name: projectName,
+                    description: description,
                 })
             return response.data;
         }
