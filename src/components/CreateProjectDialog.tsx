@@ -4,15 +4,44 @@ import { PlusCircleIcon } from 'lucide-react'
 import { Dialog, DialogTrigger, DialogContent, DialogTitle, DialogHeader, DialogDescription } from '@/components/ui/dialog'
 import { Input } from './ui/input'
 import { Button } from './ui/button'
+import axios from 'axios'
+import { useMutation } from '@tanstack/react-query'
 
 type Props = {}
 
 const CreateProjectDialog = (props: Props) => {
     const [projectName, setProjectName] = useState('');
     const [description, setDescription] = useState('');
-    const createProjectHandler = () => {
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        if (projectName == '') {
+            window.alert('Project name is required');
+            return;
+        }
+        else {
+            createProject.mutate(undefined,
+                {
+                    onSuccess: () => {
+                        console.log('Project created!');
+                    },
+                    onError: (error) => {
+                        console.error(error.message);
+                    }
+
+                }
+            )
+        }
         return;
     }
+
+    const createProject = useMutation({
+        mutationFn: async () => {
+                const response = await axios.post('/api/createProject', {
+                    name: projectName,
+                })
+            return response.data;
+        }
+    })
     return (
     <Dialog>
         <DialogTrigger>
@@ -28,7 +57,7 @@ const CreateProjectDialog = (props: Props) => {
                     <DialogDescription>
                         Create a new project to start planning your work
                         <div className='h-4'></div>
-                        <form action="submit" onSubmit={createProjectHandler}>
+                        <form action="submit" onSubmit={handleSubmit}>
                             <label htmlFor="">Name:</label>
                             <Input
                                 value={projectName}

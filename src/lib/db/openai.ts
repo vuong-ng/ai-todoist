@@ -1,6 +1,6 @@
 import OpenAI from 'openai'
 import 'dotenv/config'
-import { NextResponse } from 'next/server';
+// import { NextResponse } from 'next/server';
 
 const openai = new OpenAI({
     apiKey:process.env.OPENAI_API_KEY,
@@ -8,9 +8,11 @@ const openai = new OpenAI({
 
 const generateTodoGuide = async (req: string) => {
     try {
-        const response = await openai.responses.create({
-            model: "gpt-4.1-2025-04-14",
-            input: [
+        // const {input} = await req;
+        console.log(req);
+        const response = await openai.chat.completions.create({
+            model: "gpt-3.5-turbo",
+            messages: [
                 {
                     role: 'system',
                     content: `You are an strategic assitant that will help user plan their tasks based on their goal or project description.
@@ -25,8 +27,8 @@ const generateTodoGuide = async (req: string) => {
                 }
             ]
         });
-        const data = response.output_text;
-        return new NextResponse(data);
+        const data = response.choices[0].message.content;
+        return data as string;
     } catch (error) {
         console.log(error);
     }
