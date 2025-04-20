@@ -15,6 +15,7 @@ export const task = t.pgTable('todos', {
 
 export const project = t.pgTable('project', {
     project_id: t.serial('project_id').primaryKey(),
+    user_id : t.text('user_id').notNull(),
     project_name: t.varchar('project_name', { length: 256 }),
     description:t.text('description')
 })

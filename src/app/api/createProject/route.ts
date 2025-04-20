@@ -15,8 +15,8 @@ export async function POST(request : Request) {
     const { name, description } = request_body;
     const output = await generateTodoGuide(name);
     console.log('Task and Time lists', output);
-    const project_id = await db.insert(project).values({ project_name: name, description: description }).returning({ insertedId: project.project_id });
-    console.log(project_id)
+    const project_id = await db.insert(project).values({ project_name: name, description: description, user_id:userId }).returning({ insertedId: project.project_id });
+    console.log(project_id);
     return NextResponse.json({project_id: project_id[0].insertedId});
 
 }
