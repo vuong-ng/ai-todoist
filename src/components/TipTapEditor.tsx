@@ -1,22 +1,30 @@
 'use client'
-import React, { useState } from 'react'
-import { useEditor , BubbleMenu} from '@tiptap/react';
+import React from 'react'
+import { useEditor } from '@tiptap/react';
 import { StarterKit } from '@tiptap/starter-kit';
+import { EditorContent } from '@tiptap/react';
 
-type Props = {}
+type Props = {
+    value: string,
+    onChange: (value:string) => void
+}
 
-const TipTapEditor = (props: Props) => {
-    const [editorState, setEditorState] = useState('');
+const TipTapEditor = ({value, onChange}: Props) => {
+    // const [editorState, setEditorState] = useState('');
     const editor = useEditor({
         autofocus: true,
         extensions: [StarterKit],
-        content: editorState,
+        content: value,
         onUpdate: ({ editor }) => {
-            setEditorState(editor.getHTML())
+            onChange(editor.getHTML());
         }
     })
   return (
-    <div>TipTapEditor</div>
+      <div>
+          <div>
+              <EditorContent editor={editor} className=''/>
+          </div>
+    </div>
   )
 }
 export default TipTapEditor;

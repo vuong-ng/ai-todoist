@@ -8,13 +8,14 @@ import { clerkClient } from '@clerk/nextjs/server';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import DeleteButton from '@/components/DeleteButton';
+import CreateTaskDialog from '@/components/CreateTaskDialog';
 type Props = {
   params: {
     project_id: string;
   }
 }
 
-export const ProjectPage =  async ({ params: { project_id } }: Props) => {
+const ProjectPage =  async ({ params: { project_id } }: Props) => {
   const { userId } = await auth();
   if (!userId) {
     return redirect('/dashboard');
@@ -55,10 +56,13 @@ export const ProjectPage =  async ({ params: { project_id } }: Props) => {
         <div className='h-4'></div>
         <div className='border-stone-200 shadow-xl border rounded-lg px-16 py-8 w-full'>
           {/* TipTap */}
+          <CreateTaskDialog/>
         </div>
       </div>
 
     </div>
   )
 }
+
+export default ProjectPage;
 
