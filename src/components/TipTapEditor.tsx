@@ -1,8 +1,11 @@
 'use client'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useEditor } from '@tiptap/react';
 import { StarterKit } from '@tiptap/starter-kit';
 import { EditorContent } from '@tiptap/react';
+import TipTapMenuBar from './TipTapMenuBar';
+import { useDebounce } from '@/lib/db/useDebounce';
+// import { Button } from './ui/button';
 
 type Props = {
     value: string,
@@ -11,6 +14,7 @@ type Props = {
 
 const TipTapEditor = ({value, onChange}: Props) => {
     // const [editorState, setEditorState] = useState('');
+    const debouncedEditorState = useDebounce(value, 500);
     const editor = useEditor({
         autofocus: true,
         extensions: [StarterKit],
@@ -18,13 +22,20 @@ const TipTapEditor = ({value, onChange}: Props) => {
         onUpdate: ({ editor }) => {
             onChange(editor.getHTML());
         }
-    })
+    });
+    useEffect(() => {
+        console.log(debouncedEditorState);
+
+    }, [debouncedEditorState]);
   return (
-      <div>
+      <>
+          <div className='flex'>
+            {editor &&  <TipTapMenuBar editor={editor} />}
+          </div>
           <div>
               <EditorContent editor={editor} className=''/>
           </div>
-    </div>
+    </>
   )
 }
 export default TipTapEditor;

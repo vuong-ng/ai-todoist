@@ -19,7 +19,8 @@ const CreateTaskDialog = (props: Props) => {
   const [task, setTask] = useState('');
   const [dueDate, setDueDate] = useState<Date>();
   const [taskName, setTaskName] = useState('');
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     return;
   }
   return (
@@ -47,7 +48,10 @@ const CreateTaskDialog = (props: Props) => {
 
             <div>
               <label>Task description</label>
+              
               <TipTapEditor value={task} onChange={setTask}></TipTapEditor>
+
+              
             </div>
 
             <div>

@@ -9,17 +9,18 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import DeleteButton from '@/components/DeleteButton';
 import CreateTaskDialog from '@/components/CreateTaskDialog';
-type Props = {
-  params: {
-    project_id: string;
-  }
-}
+// type Props = {
+//   params: {
+//     project_id: string;
+//   }
+// }
 
-const ProjectPage =  async ({ params: { project_id } }: Props) => {
+const ProjectPage =  async (props: {params: Promise<{project_id:string}>}) => {
   const { userId } = await auth();
   if (!userId) {
     return redirect('/dashboard');
   };
+  const {project_id}  = await props.params;
   const client = await clerkClient();
   const user = await client.users.getUser(userId);
 
