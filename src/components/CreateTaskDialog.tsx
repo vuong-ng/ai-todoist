@@ -11,14 +11,21 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
 import {format } from 'date-fns'
+import { useMutation } from "@tanstack/react-query";
+import axios from 'axios';
+import { auth } from "@clerk/nextjs/server";
 
 
-type Props = {}
+type Props = {
+  userId: string,
+  projectId : number,
+}
 // add TipTapEditor in here
-const CreateTaskDialog = (props: Props) => {
+const CreateTaskDialog = ({userId, projectId}: Props) => {
   const [task, setTask] = useState('');
   const [dueDate, setDueDate] = useState<Date>();
   const [taskName, setTaskName] = useState('');
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     return;
@@ -48,10 +55,7 @@ const CreateTaskDialog = (props: Props) => {
 
             <div>
               <label>Task description</label>
-              
-              <TipTapEditor value={task} onChange={setTask}></TipTapEditor>
-
-              
+              <TipTapEditor userId={userId} projectId={projectId} value={task} onChange={setTask}></TipTapEditor>
             </div>
 
             <div>

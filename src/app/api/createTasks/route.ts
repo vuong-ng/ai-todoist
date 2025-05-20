@@ -8,7 +8,7 @@ import React from 'react'
 export async function POST(req: Request) {
     try {
         const body = await req.json();
-        let { userId, editorValue, project_id, task_id } = body;
+        let { userId, editorValue, project_id} = body;
         if (!editorValue || !project_id) {
             return new NextResponse("Missing editor value or project id", { status: 400 });
         }
@@ -20,13 +20,14 @@ export async function POST(req: Request) {
         }
 
         const thisProject = projects[0];
-        const task_update = await db.select().from(task).where(and(eq(task.task_id, task_id), eq(task.project_id, project_id), eq(task.user_id, userId)));
-        if (task_update.length != 1) {
-            await db.insert(task).values({ task_id: task_id, project_id: thisProject.project_id, user_id: userId });
-        }
-        else {
-            await db.update(task).set({ description: editorValue }).where(and(eq(task.task_id, task_id), eq(task.project_id, project_id), eq(task.user_id, userId)));
-        }
+        // const task_update = await db.select().from(task).where(and(eq(task.task_id, task_id), eq(task.project_id, project_id), eq(task.user_id, userId)));
+        // if (task_update.length != 1) {
+        //     await db.insert(task).values({ task_id: task_id, project_id: thisProject.project_id, user_id: userId });
+        // }
+        // else {
+        //     await db.update(task).set({ description: editorValue }).where(and(eq(task.task_id, task_id), eq(task.project_id, project_id), eq(task.user_id, userId)));
+        // }
+        await db.insert(task).values({ project_id: thisProject.project_id, user_id: userId, description:editorValue });
         return NextResponse.json({
             success: true,
         },
